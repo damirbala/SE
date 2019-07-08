@@ -1,0 +1,42 @@
+{\rtf1\ansi\ansicpg1251\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs40 \cf0 SOAP Instructions\
+\
+
+\f1\b0\fs36 Design the service:\
+\
+create interfaces to define a "contract"\
+implement interfaces\
+invoke WS methods from a client.\
+cfx provides annotations that automatically generate wsdl files and other utilities in order to make the WS usable\
+\
+Implementation:\
+\
+Create the endpoint interface with @WebService annotation\
+1.1 Write down all getters (and / or setters) with a return type not supported by JAXB with an adapter: (optional)\
+@XmlJavaTypeAdapter (StudentMapAdapter.class)\
+public Map <String, Integer> getKVPair ();\
+1.2 Implementing the adapters (optional)\
+\
+Implement the endpoint interface. Use the annotation:\
+@WebService (endpointInterface = "com.mycompany.packagetoTheInterface.wsInterface")\
+Implement the server that runs on a given url for webservice calls:\
+// this code will host the server\
+public class Server \{\
+\'a0\'a0\'a0\'a0public static void main (String args []) throws InterruptedException \{\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0BaeldungImpl implementor = new wsImplementationClass ();\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0String address = "http: // localhost: 8080 / wsURL"; // NB specify the protocol or errors may be generated\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0Endpoint.publish (address, implementor);\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0Thread.sleep (60 * 1000);\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0System.exit (0);\
+\'a0\'a0\'a0\'a0\}\
+\}\
+In NetBeans create a client with the wizard: new project -> ...\
+On the package click right mouse button -> new -> WebService Client\
+in the configuration enter the URL specified as the endpoint address with a get request for wsdl:\
+localhost: 8080 / wsURL? wsdl}
